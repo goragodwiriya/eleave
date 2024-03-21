@@ -1,0 +1,65 @@
+.modal_detail .item {
+  border-bottom: 1px dashed var(--border);
+}
+/* bar chart */
+.chart {
+  background-color: var(--content-bg);
+}
+.chart .item {
+  min-width: 200px;
+  display: block;
+  background-color: var(--darker-color);
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+.chart .label {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  text-align: center;
+  padding: 2px 0;
+  color: var(--color);
+}
+.chart .bar {
+  font-style: normal;
+  text-align: right;
+  display: block;
+  white-space: nowrap;
+  padding: 2px 0;
+  min-width: 1px;
+  opacity: 0.6;
+}
+.chart .bar span {
+  padding: 0 5px;
+}
+.chart .bg0 .bar {
+  background-color: var(--color-0);
+}
+.chart .bg1 .bar {
+  background-color: var(--color-1);
+}
+.chart .bg2 .bar {
+  background-color: var(--color-2);
+}
+.chart .bg3 .bar {
+  background-color: var(--color-3);
+}
+.chart .bg4 .bar {
+  background-color: var(--color-4);
+}
+.chart .bg5 .bar {
+  background-color: var(--color-5);
+}
+.chart .bg6 .bar {
+  background-color: var(--color-6);
+}
+.chart .bg7 .bar {
+  background-color: var(--color-7);
+}
+.chart .bg8 .bar {
+  background-color: var(--color-8);
+}
