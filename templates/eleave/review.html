@@ -1,0 +1,199 @@
+<aside data-component="sidebar"></aside>
+<div class="main-content">
+    <div>
+        <header data-component="topbar"></header>
+        <main class="content">
+            <form data-form="leave-approval" data-load-api="api/eleave/review/get" data-load-query-params="true" autocomplete="off">
+                <div class="card-groups">
+                    <header>
+                        <div>
+                            <h1 class="icon-valid" data-i18n>Review Leave Request</h1>
+                            <p data-i18n>Inspect the leave details before approving or rejecting the request</p>
+                        </div>
+                        <div>
+                            <a class="btn btn-warning icon-list" href="/leave-approvals" data-i18n>Leave Approvals</a>
+                        </div>
+                    </header>
+                    <div class="content-body">
+                        <fieldset>
+                            <legend data-i18n>Employee Information</legend>
+                            <div>
+                                <div class="form-group">
+                                    <div class="width50">
+                                        <label for="name" data-i18n>Name</label>
+                                        <span class="form-control icon-profile">
+                                            <input type="text" id="name" data-attr="value:member_name" disabled>
+                                        </span>
+                                    </div>
+                                    <div class="width50">
+                                        <label for="department" data-i18n>Department</label>
+                                        <span class="form-control icon-office">
+                                            <input type="text" id="department" data-attr="value:department_name" disabled>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend data-i18n>Leave Details</legend>
+                            <div>
+                                <div class="form-group">
+                                    <div class="width50">
+                                        <label for="leave_topic" data-i18n>Leave type</label>
+                                        <span class="form-control icon-list">
+                                            <input type="text" id="leave_topic" data-attr="value:leave_topic" disabled>
+                                        </span>
+                                    </div>
+                                    <div class="width50">
+                                        <label for="leave_num_days" data-i18n>Quota</label>
+                                        <span class="form-control icon-report">
+                                            <input type="text" id="leave_num_days" data-attr="value:leave_num_days" disabled>
+                                            <span class="unit" data-i18n>{LNG_days}/{LNG_years}</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="leave_detail" data-i18n>Policy Notes</label>
+                                <span class="form-control icon-edit">
+                                    <textarea id="leave_detail" rows="3" data-text="leave_detail" disabled></textarea>
+                                </span>
+                            </div>
+                            <div>
+                                <div class="form-group">
+                                    <div class="width50">
+                                        <label for="start_date" data-i18n>Start date</label>
+                                        <span class="form-control icon-calendar">
+                                            <input type="text" id="start_date" data-attr="value:start_date" disabled>
+                                        </span>
+                                    </div>
+                                    <div class="width50">
+                                        <label for="end_date" data-i18n>End date</label>
+                                        <span class="form-control icon-calendar">
+                                            <input type="text" id="end_date" data-attr="value:end_date" disabled>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="form-group">
+                                    <div class="width50">
+                                        <label for="days" data-i18n>Requested days</label>
+                                        <span class="form-control icon-report">
+                                            <input type="text" id="days" data-attr="value:days" disabled>
+                                        </span>
+                                    </div>
+                                    <div class="width50">
+                                        <label for="status_text" data-i18n>Status</label>
+                                        <span class="form-control icon-valid">
+                                            <input type="text" id="status_text" data-attr="value:status_text" disabled>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="created_at" data-i18n>Submitted At</label>
+                                <span class="form-control icon-clock">
+                                    <input type="text" id="created_at" data-attr="value:created_at" disabled>
+                                </span>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend data-i18n>Leave Balance</legend>
+                            <div class="leave-statistics-bars" data-if="balance_summary && balance_summary.years && balance_summary.years.length > 0"
+                                 data-for="year in balance_summary.years">
+                                <template>
+                                    <article class="leave-statistics-bar-card" data-class="is-over:!year.can_request, is-unlimited:year.quota_days == null">
+                                        <div class="leave-statistics-bar-top">
+                                            <div class="leave-statistics-bar-title-block">
+                                                <h4 data-text="'{LNG_Fiscal year} ' + year.year"></h4>
+                                                <p class="comment" data-if="year.quota_days != null" data-text="'{LNG_Quota} ' + year.quota_text + ' {LNG_days}'"></p>
+                                                <p class="comment" data-if="year.quota_days == null" data-i18n>Unlimited</p>
+                                            </div>
+                                            <div class="leave-statistics-bar-values">
+                                                <div class="leave-statistics-bar-used">
+                                                    <span data-i18n>Requested days</span>
+                                                    <strong data-text="year.requested_text || '0'"></strong>
+                                                </div>
+                                                <div class="leave-statistics-bar-remaining">
+                                                    <span data-i18n>Remaining</span>
+                                                    <strong data-text="year.quota_days == null ? '{LNG_Unlimited}' : (year.remaining_text || '0')"></strong>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="leave-statistics-meter" data-if="year.quota_days != null">
+                                            <span class="leave-statistics-meter-fill"
+                                                  data-style="{ width: ((year.used_days > year.quota_days ? 100 : (year.quota_days ? (year.used_days * 100 / year.quota_days) : 0))) + '%', backgroundColor: !year.can_request ? 'var(--color-error, #dc2626)' : 'var(--color-primary, #4361ee)' }"></span>
+                                        </div>
+                                        <div class="leave-statistics-meter leave-statistics-meter-unlimited" data-if="year.quota_days == null">
+                                            <span class="leave-statistics-meter-fill"
+                                                  data-style="{ width: (year.used_days * 100 / 100) + '%', backgroundColor: 'var(--color-primary, #4361ee)' }"></span>
+                                        </div>
+                                        <p class="leave-statistics-footnote leave-statistics-footnote-warning" data-if="!year.can_request && year.block_reason"
+                                           data-text="year.block_reason"></p>
+                                    </article>
+                                </template>
+                            </div>
+                            <div class="comment" data-if="!balance_summary || !balance_summary.years || balance_summary.years.length === 0"
+                                 data-text="'{LNG_Leave balance summary is not available}'"></div>
+                        </fieldset>
+                        <fieldset>
+                            <legend data-i18n>Reason and Contact</legend>
+                            <div>
+                                <label for="detail" data-i18n>{LNG_Details} / {LNG_Reasons for leave}</label>
+                                <span class="form-control icon-edit">
+                                    <textarea id="detail" rows="4" data-text="detail" disabled></textarea>
+                                </span>
+                            </div>
+                            <div>
+                                <label for="communication" data-i18n>Contact During Leave</label>
+                                <span class="form-control icon-phone">
+                                    <textarea id="communication" rows="3" data-text="communication" disabled></textarea>
+                                </span>
+                            </div>
+                        </fieldset>
+                        <fieldset data-if="attachments.length > 0">
+                            <legend data-i18n>Attachments</legend>
+                            <div class="file_list" data-if="attachments && attachments.length > 0" data-for="item in attachments">
+                                <template>
+                                    <div>
+                                        <a data-attr="href:item.url,target:'_blank',rel:'noopener'"><img src="{{item.icon}}" alt="{LNG_Download}"> {LNG_Download}</a>
+                                    </div>
+                                </template>
+                            </div>
+                        </fieldset>
+                        <fieldset data-attr="disabled:!canProcess">
+                            <legend data-i18n>Approver Note</legend>
+                            <div>
+                                <label for="approval_reason" data-i18n>Decision note</label>
+                                <span class="form-control icon-edit">
+                                    <textarea id="approval_reason" name="approval_reason" rows="4" placeholder="{LNG_Reason for rejection or approval note}"></textarea>
+                                </span>
+                                <div class="comment" id="result_approval_reason" data-i18n>Required when rejecting a request</div>
+                            </div>
+                            <aside class="success" data-if="!canProcess" data-i18n>This request has already been processed</aside>
+                            <aside class="error" data-if="canProcess && balance_error" data-text="balance_error"></aside>
+                        </fieldset>
+                        <fieldset class="submit">
+                            <div data-if="canProcess">
+                                <button type="button" class="btn btn-success icon-valid" data-action="click.prevent:requestApi" data-api-url="api/eleave/review/approve"
+                                        data-api-method="post" data-param-id="{id}" data-param-approval_reason="{approval_reason}" data-confirm="Confirm approval"
+                                        data-loading-text="Approving" data-notify-success="true" data-attr="disabled:!canApproveAction" data-i18n>Approve</button>
+                                <button type="button" class="btn btn-warning icon-refresh" data-action="click.prevent:requestApi" data-api-url="api/eleave/review/return-request"
+                                        data-api-method="post" data-param-id="{id}" data-param-approval_reason="{approval_reason}" data-confirm="Return this request for correction"
+                                        data-loading-text="Returning" data-notify-success="true" data-i18n>Return</button>
+                                <button type="button" class="btn btn-danger icon-ban" data-action="click.prevent:requestApi" data-api-url="api/eleave/review/reject"
+                                        data-api-method="post" data-param-id="{id}" data-param-approval_reason="{approval_reason}" data-confirm="Confirm rejection"
+                                        data-loading-text="Rejecting" data-notify-success="true" data-i18n>Reject</button>
+                            </div>
+                            <input type="hidden" name="id" data-attr="value:id">
+                        </fieldset>
+                    </div>
+                </div>
+            </form>
+        </main>
+    </div>
+    <footer class="footer">
+        <p class="center">&copy; 2026 Admin Framework - Powered by <a href="https://nowjs.net">Now.js</a></p>
+    </footer>
+</div>

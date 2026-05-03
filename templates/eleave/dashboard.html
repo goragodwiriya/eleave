@@ -1,0 +1,96 @@
+<aside data-component="sidebar"></aside>
+<div class="main-content">
+    <div>
+        <header data-component="topbar"></header>
+        <main class="content">
+            <div class="card-groups" data-component="api" data-endpoint="api/eleave/dashboard/cards">
+                <header>
+                    <div>
+                        <h1 class="icon-home" data-i18n>Dashboard</h1>
+                        <p data-i18n>Focus only on work that needs your attention now</p>
+                    </div>
+                    <div class="dashboard-header-actions">
+                        <a class="btn btn-primary icon-calendar" href="/leave-request" data-i18n>{LNG_Add} {LNG_Leave Request}</a>
+                        <a class="btn btn-warning icon-valid" data-if="show_approvals" data-attr="href:links.approvals" data-i18n>Approval Queue</a>
+                    </div>
+                </header>
+                <div class="content-body dashboard-layout">
+                    <div class="dashboard-card-grid">
+                        <a class="dashboard-focus-card is-warning" data-attr="href:links.my_pending">
+                            <div class="dashboard-focus-icon icon-loading"></div>
+                            <div class="dashboard-focus-content">
+                                <div class="dashboard-focus-label" data-i18n>Waiting for Approval</div>
+                                <div class="dashboard-focus-value" data-text="summary.my_pending_requests || 0"></div>
+                                <div class="comment">
+                                    <span data-i18n>My requests in FY</span>
+                                    <span data-text="year_label || ''"></span>
+                                </div>
+                            </div>
+                        </a>
+                        <a class="dashboard-focus-card is-returned" data-attr="href:links.my_returned">
+                            <div class="dashboard-focus-icon icon-refresh"></div>
+                            <div class="dashboard-focus-content">
+                                <div class="dashboard-focus-label" data-text="returned_status_label || ''"></div>
+                                <div class="dashboard-focus-value" data-text="summary.my_returned_requests || 0"></div>
+                                <div class="comment">
+                                    <span data-i18n>Requests returned and waiting for your update</span>
+                                </div>
+                            </div>
+                        </a>
+                        <a class="dashboard-focus-card is-success" data-attr="href:links.my_approved">
+                            <div class="dashboard-focus-icon icon-valid"></div>
+                            <div class="dashboard-focus-content">
+                                <div class="dashboard-focus-label" data-i18n>Approved Requests</div>
+                                <div class="dashboard-focus-value" data-text="summary.my_approved_requests || 0"></div>
+                                <div class="comment">
+                                    <span data-i18n>Approved in FY</span>
+                                    <span data-text="year_label || ''"></span>
+                                </div>
+                            </div>
+                        </a>
+                        <a class="dashboard-focus-card is-approval" data-attr="href:links.approvals" data-if="show_approvals">
+                            <div class="dashboard-focus-icon icon-valid"></div>
+                            <div class="dashboard-focus-content">
+                                <div class="dashboard-focus-label" data-i18n>Needs Your Approval</div>
+                                <div class="dashboard-focus-value" data-text="approval_count || 0"></div>
+                                <div class="comment" data-i18n>Requests waiting in your queue</div>
+                            </div>
+                        </a>
+                    </div>
+                    <fieldset data-if="show_department_chart">
+                        <legend data-i18n>Department Leave Statistics</legend>
+                        <div class="dashboard-section-head">
+                            <div class="comment" data-i18n>Approved and pending leave days grouped by department for the current fiscal year</div>
+                        </div>
+                        <div class="dashboard-graph-card">
+                            <div class="dashboard-graph" data-component="graph" data-type="bar" data-url="api/eleave/dashboard/graph" data-path="series" data-autoload="true"
+                                 data-animation="false" data-max-data-points="0" data-show-legend="true" data-show-grid="true" data-show-data-labels="true"
+                                 data-legend-position="bottom"></div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend data-i18n>Approval Logs</legend>
+                        <div class="dashboard-section-head">
+                            <div class="comment" data-text="logs_note || ''"></div>
+                        </div>
+                        <div class="tablebody">
+                            <table class=" table border fullwidth" data-table="dashboardApprovalLogs" data-source="api/eleave/dashboard/logs" data-show-caption="false">
+                                <thead>
+                                    <tr>
+                                        <th data-field="created_at" data-format="datetime" data-i18n>{LNG_Created}</th>
+                                        <th data-field="member_name" data-i18n>{LNG_Name}</th>
+                                        <th data-field="topic" data-i18n>{LNG_Details}</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer class="footer">
+        <p class="center">&copy; 2026 Admin Framework - Powered by <a href="https://nowjs.net">Now.js</a></p>
+    </footer>
+</div>
