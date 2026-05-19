@@ -1,0 +1,98 @@
+<aside data-component="sidebar"></aside>
+<div class="main-content">
+    <div>
+        <header data-component="topbar"></header>
+        <main class="content">
+            <div class="card-groups">
+                <header>
+                    <div>
+                        <h1 class="icon-stats" data-i18n>Leave Statistics</h1>
+                        <p data-i18n>Personal leave usage and remaining balance by fiscal year</p>
+                    </div>
+                    <div>
+                        <a class="btn btn-primary icon-arrow-left" data-if="window.history.length > 1" onclick="window.history.back();" data-i18n>Back</a>
+                    </div>
+                </header>
+                <form data-form="myLeaveStatistics" data-validate="false" data-ajax-submit="false" data-load-api="api/eleave/statistics" data-load-query-params="true">
+                    <section class="leave-statistics-shell" id="leave-statistics-results">
+                        <div class="leave-statistics-layout">
+                            <div class="leave-statistics-toolbar">
+                                <div>
+                                    <div class="leave-statistics-kicker" data-i18n>Personal Leave</div>
+                                    <h2 data-text="'{LNG_Used And Remaining Days} ' + name"></h2>
+                                </div>
+                                <div class="leave-statistics-filter">
+                                    <label for="current_fiscal_year" data-i18n>Fiscal year</label>
+                                    <span class="form-control icon-calendar">
+                                        <select id="current_fiscal_year" name="year" data-attr="value:current_fiscal_year" data-options-key="year"
+                                                data-action="change.prevent:requestApi" data-api-url="api/eleave/statistics/render" data-api-method="get"
+                                                data-param-year="{#current_fiscal_year}" data-param-member_id="{member_id}" data-response-target="#leave-statistics-panel-target"
+                                                data-response-bind="template">
+                                        </select>
+                                    </span>
+                                </div>
+                                <input type="hidden" id="member_id" name="member_id" data-attr="value:member_id">
+                            </div>
+                            <div id="leave-statistics-panel-target">
+                                <div class="leave-statistics-panel">
+                                    <div class="leave-statistics-panel-header">
+                                        <div>
+                                            <h3 data-i18n>Leave Balance Overview</h3>
+                                            <p class="comment" data-text="range.text || ''"></p>
+                                        </div>
+                                        <div class="leave-statistics-panel-total">
+                                            <span class="leave-statistics-panel-total-value" data-text="summary.used_text || '0'"></span>
+                                            <span class="leave-statistics-panel-total-label" data-i18n>days used</span>
+                                        </div>
+                                    </div>
+                                    <div class="leave-statistics-bars" data-if="rows && rows.length > 0" data-for="item in rows">
+                                        <template>
+                                            <article class="leave-statistics-bar-card" data-class="is-over:item.is_over_quota, is-unlimited:item.has_quota == false">
+                                                <div class="leave-statistics-bar-top">
+                                                    <div class="leave-statistics-bar-title-block">
+                                                        <h4 data-text="item.leave_topic || '-' "></h4>
+                                                        <p class="comment" data-if="item.has_quota" data-text="'{LNG_Quota} ' + item.quota_days + ' {LNG_days}'"></p>
+                                                        <p class="comment" data-if="!item.has_quota" data-i18n>No fixed annual quota</p>
+                                                    </div>
+                                                    <div class="leave-statistics-bar-values">
+                                                        <div class="leave-statistics-bar-used">
+                                                            <span data-i18n>used</span>
+                                                            <strong data-text="item.used_text || '0'"></strong>
+                                                        </div>
+                                                        <div class="leave-statistics-bar-remaining" data-if="item.has_quota">
+                                                            <span data-i18n>Remaining</span>
+                                                            <strong data-text="item.remaining_text || '0'"></strong>
+                                                        </div>
+                                                        <div class="leave-statistics-bar-remaining" data-if="!item.has_quota">
+                                                            <span data-i18n>Remaining</span>
+                                                            <strong data-text="'{LNG_Unlimited}'"></strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="leave-statistics-meter" data-if="item.has_quota">
+                                                    <span class="leave-statistics-meter-fill"
+                                                          data-style="{ width: ((item.used_days > item.quota_days ? 100 : (item.quota_days ? (item.used_days * 100 / item.quota_days) : 0))) + '%', backgroundColor: item.color }"></span>
+                                                </div>
+                                                <div class="leave-statistics-meter leave-statistics-meter-unlimited" data-if="!item.has_quota">
+                                                    <span class="leave-statistics-meter-fill"
+                                                          data-style="{ width: (item.used_days * 100 / 100) + '%', backgroundColor: item.color }"></span>
+                                                </div>
+                                                <p class="leave-statistics-footnote" data-if="item.pending_days > 0 && !item.is_over_quota"
+                                                   data-text="'{LNG_Includes pending} ' + item.pending_text + ' {LNG_days}'"></p>
+                                                <p class="leave-statistics-footnote leave-statistics-footnote-warning" data-if="item.is_over_quota"
+                                                   data-text="'{LNG_Over quota by} ' + item.overage_text + ' {LNG_days}'"></p>
+                                            </article>
+                                        </template>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </form>
+            </div>
+        </main>
+    </div>
+    <footer class="footer">
+        <p class="center">&copy; 2026 Admin Framework - Powered by <a href="https://nowjs.net">Now.js</a></p>
+    </footer>
+</div>

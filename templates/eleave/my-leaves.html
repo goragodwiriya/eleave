@@ -1,0 +1,107 @@
+<aside data-component="sidebar"></aside>
+<div class="main-content">
+    <div>
+        <header data-component="topbar"></header>
+        <main class="content">
+            <div class="card-groups">
+                <header>
+                    <div>
+                        <h1 class="icon-calendar" data-i18n>My Leave Requests</h1>
+                        <p data-i18n>Track the status of your leave requests and continue editing pending items</p>
+                    </div>
+                    <div>
+                        <a class="btn btn-primary icon-edit" href="/leave-request" data-i18n>Leave Request</a>
+                    </div>
+                </header>
+                <div class="content-body">
+                    <form data-table-filter="myLeaves" class="table_nav">
+                        <div>
+                            <label for="pageSize" data-i18n>Show</label>
+                            <span class="form-control">
+                                <select name="pageSize">
+                                    <option value="10" data-i18n>10 {LNG_entries}</option>
+                                    <option value="25" data-i18n>25 {LNG_entries}</option>
+                                    <option value="50" data-i18n>50 {LNG_entries}</option>
+                                    <option value="100" data-i18n>100 {LNG_entries}</option>
+                                </select>
+                            </span>
+                        </div>
+                        <div>
+                            <label for="leave_id" data-i18n>{LNG_Leave type}</label>
+                            <span class="form-control">
+                                <select id="leave_id" name="leave_id" data-attr="value:leave_id">
+                                    <option value="" data-i18n>{LNG_All items}</option>
+                                </select>
+                            </span>
+                        </div>
+                        <div>
+                            <label for="status" data-i18n>{LNG_Status}</label>
+                            <span class="form-control">
+                                <select id="status" name="status" data-attr="value:status">
+                                    <option value="" data-i18n>{LNG_All items}</option>
+                                </select>
+                            </span>
+                        </div>
+                        <div>
+                            <label for="from" data-i18n>From</label>
+                            <span class="form-control">
+                                <input type="date" name="from" id="from" data-attr="value:from">
+                            </span>
+                        </div>
+                        <div>
+                            <label for="to" data-i18n>To</label>
+                            <span class="form-control">
+                                <input type="date" name="to" id="to" data-attr="value:to">
+                            </span>
+                        </div>
+                        <input type="search" name="search" placeholder="{LNG_Search}...">
+                    </form>
+                    <div class="tablebody">
+                        <table class="table border fullwidth" data-table="myLeaves" data-source="api/eleave/myleaves" data-default-sort="created_at desc" data-page-size="10"
+                               data-show-footer="true" data-footer-aggregates='{"days":"sum"}' data-search-columns="reason,detail" data-action-url="api/eleave/myleaves/action"
+                               data-row-actions='{
+                                "view":{
+                                    "label":"View",
+                                    "className":"btn btn-warning icon-search"
+                                },
+                                "edit":{
+                                    "label":"Edit",
+                                    "className":"btn btn-success icon-edit",
+                                    "condition":"${status == 0 || status == 4}"
+                                },
+                                "cancel":{
+                                    "label":"Cancel",
+                                    "className":"btn btn-danger icon-ban",
+                                    "confirm": "{LNG_Confirm cancellation}",
+                                    "condition":"${status == 0 || status == 4}"
+                                }
+                            }'>
+                            <thead>
+                                <tr>
+                                    <th data-field="leave_id" data-sort="leave_topic" data-filter="true" data-type="select" data-show-all="true" data-all-value=""
+                                        data-label="Leave type" data-template="${leave_topic}" data-i18n>{LNG_Leave type}</th>
+                                    <th data-field="leave_text" data-i18n>{LNG_Leave dates}</th>
+                                    <th data-field="days" data-sort="days" class="center" data-cell-class="center" data-i18n>{LNG_days}</th>
+                                    <th data-field="created_at" data-sort="created_at" class="center" data-cell-class="center" data-format="datetime" data-i18n>{LNG_Created}</th>
+                                    <th data-field="status" data-sort="status" class="center" data-cell-class="center" data-filter="true" data-type="select" data-show-all="true"
+                                        data-all-value="" data-formatter="formatTableOptionStatus" data-i18n>{LNG_Status}</th>
+                                    <th data-field="reason" data-sort="reason" data-template="<span class='two_line'>${reason}</span>" data-i18n>{LNG_Reason}</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="2" data-i18n>{LNG_Total}</th>
+                                    <th data-field="days" data-format="number" class="center" data-i18n></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer class="footer">
+        <p class="center">&copy; 2026 Admin Framework - Powered by <a href="https://nowjs.net">Now.js</a></p>
+    </footer>
+</div>

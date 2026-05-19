@@ -1,0 +1,126 @@
+<aside data-component="sidebar"></aside>
+<div class="main-content">
+    <div>
+        <header data-component="topbar"></header>
+        <main class="content">
+            <form data-form="leave-balance-form" action="api/eleave/balance/get" method="get" data-load-api="api/eleave/balance/get" data-load-query-params="true"
+                  data-submit-target="#leave-balance-results" data-submit-query-params="true" data-submit-query-fields="year,leave_id,member_id,department"
+                  data-show-success-inline="false" data-show-success-in-notification="false" autocomplete="off">
+                <div class="card-groups">
+                    <header>
+                        <div>
+                            <h1 class="icon-report" data-i18n>Leave Balance</h1>
+                            <p data-i18n>Review annual leave balance by leave type, including pending reservations</p>
+                        </div>
+                    </header>
+                    <div class="content-body">
+                        <fieldset>
+                            <legend data-i18n>Report Filters</legend>
+                            <div class="form-group">
+                                <div class="width50">
+                                    <label for="balance_year" data-i18n>Year</label>
+                                    <span class="form-control icon-calendar">
+                                        <select id="balance_year" name="year" data-options-key="year" data-attr="value:year">
+                                            <option value=""></option>
+                                        </select>
+                                    </span>
+                                </div>
+                                <div class="width50">
+                                    <label for="balance_leave_id" data-i18n>Leave type</label>
+                                    <span class="form-control icon-list">
+                                        <select id="balance_leave_id" name="leave_id" data-options-key="leave_id" data-attr="value:leave_id">
+                                            <option value=""></option>
+                                        </select>
+                                    </span>
+                                </div>
+                            </div>
+                            <div data-if="can_view_all">
+                                <div class="form-group">
+                                    <div class="width50">
+                                        <label for="balance_member_id" data-i18n>Employee</label>
+                                        <span class="form-control icon-profile">
+                                            <select id="balance_member_id" name="member_id" data-options-key="member_id" data-attr="value:member_id">
+                                                <option value=""></option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                    <div class="width50">
+                                        <label for="balance_department" data-i18n>Department</label>
+                                        <span class="form-control icon-office">
+                                            <select id="balance_department" name="department" data-options-key="department" data-attr="value:department">
+                                                <option value=""></option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="submit">
+                                <button type="submit" class="btn btn-primary icon-search" data-i18n>Apply Filters</button>
+                                <a class="btn btn-warning icon-refresh" href="/leave-balance" data-i18n>Reset</a>
+                            </div>
+                        </fieldset>
+                        <div id="leave-balance-results">
+                            <fieldset>
+                                <legend data-i18n>Balance Summary</legend>
+                                <div class="comment" data-text="state.scope_note || ''"></div>
+                                <div class="comment" data-if="state.summary">
+                                    <span data-i18n>Year</span>
+                                    <span data-text="state.summary.year || ''"></span>
+                                    <span> • </span>
+                                    <span data-i18n>Employees</span>
+                                    <span data-text="state.summary.employee_count || 0"></span>
+                                    <span> • </span>
+                                    <span data-i18n>Leave types</span>
+                                    <span data-text="state.summary.leave_type_count || 0"></span>
+                                    <span> • </span>
+                                    <span data-i18n>Overdrawn</span>
+                                    <span data-text="state.summary.negative_count || 0"></span>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <legend data-i18n>Annual Balance Report</legend>
+                                <div class="tablebody">
+                                    <table class="table border fullwidth">
+                                        <thead>
+                                            <tr>
+                                                <th data-i18n>Employee</th>
+                                                <th data-i18n>Department</th>
+                                                <th data-i18n>Leave type</th>
+                                                <th class="center" data-i18n>Quota</th>
+                                                <th class="center" data-i18n>Approved</th>
+                                                <th class="center" data-i18n>Pending</th>
+                                                <th class="center" data-i18n>Remaining</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody data-if="state.rows && state.rows.length > 0" data-for="item in state.rows">
+                                            <template>
+                                                <tr>
+                                                    <td data-text="item.member_name || '-'"></td>
+                                                    <td data-text="item.department_name || '-'"></td>
+                                                    <td data-text="item.leave_topic || '-'"></td>
+                                                    <td class="center" data-text="item.quota_text || 'Unlimited'"></td>
+                                                    <td class="center" data-text="item.approved_text || '0'"></td>
+                                                    <td class="center" data-text="item.pending_text || '0'"></td>
+                                                    <td class="center" data-style="color:item.remaining_color || 'inherit'" data-text="item.remaining_text || 'Unlimited'"></td>
+                                                </tr>
+                                            </template>
+                                        </tbody>
+                                        <tbody data-if="!state.rows || state.rows.length === 0">
+                                            <tr>
+                                                <td colspan="7" class="center"
+                                                    data-text="state.summary ? '{LNG_No leave balance data found for the selected filters}' : '{LNG_Loading...}'"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </main>
+    </div>
+    <footer class="footer">
+        <p class="center">&copy; 2026 Admin Framework - Powered by <a href="https://nowjs.net">Now.js</a></p>
+    </footer>
+</div>
