@@ -1,0 +1,95 @@
+<aside data-component="sidebar"></aside>
+<div class="main-content">
+    <div>
+        <header data-component="topbar"></header>
+        <main class="content">
+            <div class="card-groups">
+                <header>
+                    <div>
+                        <h1 class="icon-cog" data-i18n>{LNG_Module settings}</h1>
+                        <p data-i18n>{LNG_Configuration module} {LNG_Leave}</p>
+                    </div>
+                </header>
+                <div class="content-body">
+                    <form data-form="settings" action="api/eleave/settings/save" method="POST" data-ajax-submit="true" data-load-api="api/eleave/settings/get"
+                          data-confirm="Confirm save" data-script="initEleaveSettings">
+                        <fieldset>
+                            <legend class="icon-verfied" data-i18n>Approval workflow</legend>
+                            <div>
+                                <label for="eleave_approve_level" data-i18n>Approval</label>
+                                <span class="form-control icon-valid">
+                                    <select id="eleave_approve_level" name="eleave_approve_level" data-attr="value:eleave_approve_level">
+                                        <option value="0" data-i18n>Deactivate</option>
+                                        <option value="1" data-i18n>Activate</option>
+                                    </select>
+                                </span>
+                            </div>
+                            <div class="form-group can-approve" data-level="1">
+                                <div class="width50">
+                                    <label for="eleave_approve_status1" data-i18n>{LNG_Approval} ({LNG_Member status})</label>
+                                    <span class="form-control icon-star0">
+                                        <select id="eleave_approve_status1" name="eleave_approve_status[1]" data-attr="value:eleave_approve_status[1]" data-options-key="status">
+                                            <option value="" data-i18n>Please select</option>
+                                        </select>
+                                    </span>
+                                </div>
+                                <div class="width50">
+                                    <label for="eleave_approve_department1" data-i18n>Department</label>
+                                    <span class="form-control icon-group">
+                                        <select id="eleave_approve_department1" name="eleave_approve_department[1]" data-attr="value:eleave_approve_department[1]"
+                                                data-options-key="department">
+                                            <option value="" data-i18n>Please select</option>
+                                        </select>
+                                    </span>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend class="icon-cog" data-i18n>General</legend>
+                            <div>
+                                <label for="eleave_fiscal_year" data-i18n>Fiscal year</label>
+                                <span class="form-control icon-calendar">
+                                    <select id="eleave_fiscal_year" name="eleave_fiscal_year" data-attr="value:eleave_fiscal_year" data-options-key="fiscal_years">
+                                    </select>
+                                </span>
+                                <div class="comment" id="result_eleavel_fiscal_year" data-i18n>Set the start date of the fiscal year, the 1st day of the selected month.</div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend class="icon-upload" data-i18n>Upload</legend>
+                            <div>
+                                <div>
+                                    <label for="eleave_file_types" data-i18n>Type of file uploads</label>
+                                    <span class="form-control icon-file">
+                                        <input type="tags" id="eleave_file_types" name="eleave_file_types" data-attr="value:eleave_file_types">
+                                    </span>
+                                </div>
+                                <div class="comment" id="result_eleave_file_types" data-i18n>Specify the file extension that allows uploading. English lowercase letters and numbers
+                                    2-4 characters, eg zip,rar,doc,docx</div>
+                            </div>
+                            <div>
+                                <div>
+                                    <label for="eleave_upload_size" data-i18n>Size of the file upload</label>
+                                    <span class="form-control icon-upload">
+                                        <select id="eleave_upload_size" name="eleave_upload_size" data-options-key="upload_sizes" data-attr="value:eleave_upload_size">
+                                            <option value="" data-i18n>Please select</option>
+                                        </select>
+                                    </span>
+                                </div>
+                                <div class="comment" id="result_eleave_upload_size"
+                                     data-text="'{LNG_The size of the files can be uploaded.} ({LNG_Should not exceed the value of the Server}: ' + upload_max_filesize + ')'">
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset class="submit">
+                            <button type="submit" class="btn btn-primary icon-save" data-i18n>Save</button>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer class="footer">
+        <p class="center">&copy; 2026 Admin Framework - Powered by <a href="https://nowjs.net">Now.js</a></p>
+    </footer>
+</div>

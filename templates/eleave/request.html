@@ -1,0 +1,139 @@
+<aside data-component="sidebar"></aside>
+<div class="main-content">
+    <div>
+        <header data-component="topbar"></header>
+        <main class="content">
+            <form data-form="leave-request" data-validate="true" action="api/eleave/request/save" method="post" data-ajax-submit="true" data-load-api="api/eleave/request/get"
+                  data-load-query-params="true" data-watch-api="api/eleave/request/policy" data-watch-fields="id,leave_id,start_date,start_period,end_date,end_period"
+                  data-watch-trigger="leave_id,start_date,start_period,end_date,end_period" autocomplete="off">
+                <div class="card-groups">
+                    <header>
+                        <div>
+                            <h1 class="icon-calendar" data-text="id ? '{LNG_Edit} {LNG_Leave Request}' : '{LNG_Create} {LNG_Leave Request}'" data-i18n></h1>
+                            <p data-text="id ? '{LNG_Update a pending leave request}' : '{LNG_Submit a new leave request}'" data-i18n></p>
+                        </div>
+                        <div>
+                            <a class="btn btn-warning icon-list" href="/my-leaves" data-i18n>My Leave Requests</a>
+                        </div>
+                    </header>
+                    <div class="content-body">
+                        <fieldset>
+                            <legend data-i18n>Employee Information</legend>
+                            <div>
+                                <div class="form-group">
+                                    <div class="width50">
+                                        <label for="member_name" data-i18n>Name</label>
+                                        <span class="form-control icon-user">
+                                            <input type="text" id="member_name" data-attr="value:member_name" disabled>
+                                        </span>
+                                    </div>
+                                    <div class="width50">
+                                        <label for="department_name" data-i18n>Department</label>
+                                        <span class="form-control icon-office">
+                                            <input type="text" id="department_name" data-attr="value:department_name" disabled>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend data-i18n>Leave Information</legend>
+                            <div>
+                                <label for="leave_id" data-i18n>Leave type</label>
+                                <span class="form-control icon-list">
+                                    <select id="leave_id" name="leave_id" data-options-key="leave_id" data-attr="value:leave_id">
+                                        <option value="" data-i18n>Please select</option>
+                                    </select>
+                                </span>
+                                <aside class="info" id="result_leave_id" data-text="preview.leave_type_detail"></aside>
+                            </div>
+                            <div>
+                                <div class="form-group">
+                                    <div class="width50">
+                                        <label for="start_date" data-i18n>Start date</label>
+                                        <span class="form-control icon-calendar">
+                                            <input type="date" id="start_date" name="start_date" data-attr="value:start_date">
+                                        </span>
+                                        <div class="comment" id="result_start_date"></div>
+                                    </div>
+                                    <div class="width50">
+                                        <label for="start_period" data-i18n>Start period</label>
+                                        <span class="form-control icon-clock">
+                                            <select id="start_period" name="start_period" data-options-key="start_period" data-attr="value:start_period">
+                                                <option value="0" data-i18n>Morning</option>
+                                            </select>
+                                        </span>
+                                        <div class="comment" id="result_start_period"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="form-group">
+                                    <div class="width50">
+                                        <label for="end_date" data-i18n>End date</label>
+                                        <span class="form-control icon-calendar">
+                                            <input type="date" id="end_date" name="end_date" data-attr="value:end_date">
+                                        </span>
+                                        <div class="comment" id="result_end_date"></div>
+                                    </div>
+                                    <div class="width50">
+                                        <label for="end_period" data-i18n>End period</label>
+                                        <span class="form-control icon-clock">
+                                            <select id="end_period" name="end_period" data-options-key="end_period" data-attr="value:end_period">
+                                                <option value="1" data-i18n>Afternoon</option>
+                                            </select>
+                                        </span>
+                                        <div class="comment" id="result_end_period"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="days_preview" data-i18n>Calculated Days</label>
+                                <span class="form-control icon-report">
+                                    <input type="text" id="days_preview" data-attr="value:preview.days" readonly>
+                                </span>
+                                <aside class="danger" id="result_days_preview" data-text="preview.days_note"></aside>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend data-i18n>Reason and Contact</legend>
+                            <div>
+                                <label for="detail" data-i18n>{LNG_Details} / {LNG_Reasons for leave}</label>
+                                <span class="form-control icon-edit">
+                                    <textarea id="detail" name="detail" rows="4" data-text="detail"></textarea>
+                                </span>
+                                <div class="comment" id="result_detail" data-i18n>Please provide details or reasons for your leave request</div>
+                            </div>
+                            <div>
+                                <label for="communication" data-i18n>Contact During Leave</label>
+                                <span class="form-control icon-phone">
+                                    <textarea id="communication" name="communication" rows="3" data-text="communication"></textarea>
+                                </span>
+                                <div class="comment" id="result_communication" data-i18n>Provide a phone number or contact channel if needed</div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend data-i18n>Supporting Documents</legend>
+                            <div>
+                                <label for="eleave" data-i18n>Attachments</label>
+                                <span class="form-control icon-upload">
+                                    <input type="file" id="eleave" name="eleave" data-preview="true" data-allow-remove-existing="true"
+                                           data-action-url="api/eleave/request/remove-attachment" data-attr="accept:file_types">
+                                </span>
+                                <div class="comment" id="result_eleave" data-text="'{LNG_Browse file uploaded, type}: ' + file_types + ' {LNG_Max size}: ' + max_size"></div>
+                            </div>
+                        </fieldset>
+                        <fieldset class="submit">
+                            <button type="submit" class="btn btn-primary icon-save" data-i18n>Save</button>
+                            <input type="hidden" name="id" data-attr="value:id">
+                            <input type="hidden" name="member_id" data-attr="value:member_id">
+                        </fieldset>
+                    </div>
+                </div>
+            </form>
+        </main>
+    </div>
+    <footer class="footer">
+        <p class="center">&copy; 2026 Admin Framework - Powered by <a href="https://nowjs.net">Now.js</a></p>
+    </footer>
+</div>
