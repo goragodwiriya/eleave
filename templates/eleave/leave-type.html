@@ -1,0 +1,34 @@
+<form data-form="leaveType" data-validate="false" data-reset="false" action="api/eleave/leavetype/save" method="post" data-ajax-submit="true" data-load-query-params="true"
+      autocomplete="off">
+    <fieldset>
+        <legend class="icon-info" data-i18n>{LNG_Details of} {LNG_Leave Type}</legend>
+        <div>
+            <label for="topic" data-i18n>{LNG_Topic}</label>
+            <span class="form-control icon-edit">
+                <input type="text" id="topic" name="topic" data-attr="value:topic" maxlength="20">
+            </span>
+        </div>
+        <div>
+            <label for="detail" data-i18n>Leave conditions</label>
+            <span class="form-control icon-file">
+                <textarea id="detail" name="detail" rows="5" data-attr="value:detail"></textarea>
+            </span>
+        </div>
+        <div>
+            <label for="num_days" data-i18n>Number of leave days</label>
+            <span class="form-control icon-event">
+                <input type="number" id="num_days" name="num_days" data-attr="value:num_days" max="365">
+                <span class="unit" data-i18n>days</span>
+            </span>
+            <div class="comment" id="result_num_days" data-i18n>Enter 0 if you want unlimited leave</div>
+        </div>
+        <div>
+            <input type="checkbox" class="switch" id="is_active" name="is_active" value="1" data-attr="checked:is_active">
+            <label for="is_active" data-i18n>Active</label>
+        </div>
+    </fieldset>
+    <fieldset class="submit right">
+        <button type="submit" class="btn btn-primary icon-save" data-i18n>Save</button>
+        <input type="hidden" name="id" data-attr="value:id">
+    </fieldset>
+</form>

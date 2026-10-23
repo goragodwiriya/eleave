@@ -1,0 +1,51 @@
+<div class="card-groups">
+    <header>
+        <div>
+            <h1 class="icon-valid" data-i18n>Leave Approvals</h1>
+            <p data-i18n>Review pending leave requests and see recently processed requests</p>
+        </div>
+    </header>
+    <div class="content-body">
+        <div class="tablebody">
+            <table class="table border fullwidth" data-table="leaveApprovals" data-source="api/eleave/approvals" data-default-sort="created_at desc"
+                   data-show-footer="true" data-footer-aggregates='{"days":"sum"}' data-page-size="10"
+                   data-search-columns="member_name,leave_topic,reason,detail,department_name" data-action-url="api/eleave/approvals/action" data-row-actions='{
+                    "statistics":{
+                        "label":"Leave Statistics",
+                        "className":"btn btn-pink icon-stats",
+                        "params":{
+                            "member_id":"{member_id}"
+                        }
+                    },
+                    "review":{
+                        "label":"Review",
+                        "className":"btn btn-warning icon-search"
+                    }
+                }'>
+                <thead>
+                    <tr>
+                        <th data-field="member_name" data-sort="member_name" data-i18n>{LNG_Name}</th>
+                        <th data-field="department" data-sort="department" data-filter="true" data-type="select" data-show-all="true" data-all-value=""
+                            data-format="lookup" data-i18n>{LNG_Department}</th>
+                        <th data-field="leave_id" data-sort="leave_topic" data-filter="true" data-type="select" data-show-all="true" data-all-value=""
+                            data-format="lookup" data-i18n>{LNG_Leave type}</th>
+                        <th data-field="leave_text" data-i18n>{LNG_Leave dates}</th>
+                        <th data-field="days" data-sort="days" class="center" data-cell-class="center" data-i18n>{LNG_days}</th>
+                        <th data-field="created_at" data-sort="created_at" data-format="datetime" data-filter="true" data-type="daterange" data-range-names="from,to"
+                            data-range-presets="today,7d,30d,thismonth,lastmonth" data-label="Date" data-i18n>{LNG_Created}</th>
+                        <th data-field="status" data-sort="status" data-filter="true" data-type="select" data-show-all="true" data-all-value=""
+                            data-formatter="formatTableOptionStatus" class="center" data-cell-class="center" data-i18n>{LNG_Status}</th>
+                        <th data-field="reason" data-template="<span class='two_line'>${reason}</span>" data-i18n>{LNG_Reason}</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="4" data-i18n>{LNG_Total}</th>
+                        <th data-field="days" data-format="number" class="center" data-i18n></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
