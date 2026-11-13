@@ -1,0 +1,30 @@
+<!-- รายละเอียดใบลา (หน้าต่าง) — api/eleave/myleaves/action (view)
+     ข้อมูลล้วนจาก Eleave\View\View::modalData() — วันที่ลาเป็นค่าดิบที่จัดรูปที่นี่ · อีเมลยังประกอบที่ server (View::render) -->
+<dl class="detail-list">
+  <dt class="icon-customer" data-i18n>Name</dt>
+  <dd data-text="name"></dd>
+  <dt class="icon-verfied" data-i18n>Leave type</dt>
+  <dd data-text="leave_type"></dd>
+  <dt class="icon-group" data-i18n>Department</dt>
+  <dd data-text="department_name || '-'"></dd>
+  <dt class="icon-file"><span data-i18n>Detail</span>/<span data-i18n>Reasons for leave</span></dt>
+  <dd class="pre-line" data-text="detail || '-'"></dd>
+  <dt class="icon-calendar" data-i18n>Leave dates</dt>
+  <dd><span data-text="start_date | date"></span> <span data-text="start_period_text"></span><span data-if="!same_day"> - <span data-text="end_date | date"></span> <span
+      data-text="end_period_text"></span></span></dd>
+  <dt class="icon-event" data-i18n>Number of leave days</dt>
+  <dd><span data-text="days | number"></span> <span data-i18n>days</span></dd>
+  <dt class="icon-file" data-i18n>Contact During Leave</dt>
+  <dd class="pre-line" data-text="communication || '-'"></dd>
+  <dt class="icon-star0" data-i18n>Status</dt>
+  <dd><span data-attr="class:'term' + status" data-text="status_text"></span></dd>
+  <dt class="icon-comments" data-if="reason" data-i18n>Reason</dt>
+  <dd class="pre-line" data-if="reason" data-text="reason"></dd>
+  <dt class="icon-download" data-i18n>Attachments</dt>
+  <dd data-if="!attachments || attachments.length === 0">-</dd>
+  <dd data-if="attachments && attachments.length > 0" data-for="item in attachments">
+    <template>
+      <a target="_blank" rel="noopener" data-attr="href:item.url" data-text="item.name"></a><br>
+    </template>
+  </dd>
+</dl>

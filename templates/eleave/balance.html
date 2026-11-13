@@ -1,0 +1,38 @@
+<!-- สิทธิ์การลาคงเหลือ พนักงาน × ประเภทการลา ในปี (api/eleave/balance)
+     API ตอบข้อมูลล้วน: แถว · ตัวกรอง (พนักงาน/แผนก = false สำหรับผู้ที่เห็นแค่ของตัวเอง หน้าเว็บซ่อนเอง) · options.summary -->
+<div class="card-groups">
+  <header id="leave-balance-top">
+    <div>
+      <h1 class="icon-report" data-i18n>Leave Balance</h1>
+      <p data-i18n>Review annual leave balance by leave type, including pending reservations</p>
+      <p class="comment">
+        <span data-i18n>Employees</span> <span data-text="options.summary.employee_count"></span>
+        • <span data-i18n>Leave types</span> <span data-text="options.summary.leave_type_count"></span>
+        • <span data-i18n>Overdrawn</span> <span data-text="options.summary.negative_count"></span>
+      </p>
+    </div>
+  </header>
+  <div class="content-body">
+    <div class="tablebody">
+      <table class="table border fullwidth leave-balance" data-table="leaveBalance" data-source="api/eleave/balance" data-load-target="#leave-balance-top"
+             data-default-sort="member_name asc,leave_topic asc" data-page-size="50">
+        <thead>
+          <tr>
+            <th data-field="year" data-filter="true" data-type="select" data-show-all="false" data-hidden="true" data-i18n>year</th>
+            <th data-field="department" data-filter="true" data-type="select" data-show-all="true" data-hidden="true" data-i18n>Department</th>
+            <th data-field="member_id" data-filter="true" data-type="text" data-hidden="true" data-i18n>Employee</th>
+            <th data-field="member_name" data-sort="member_name" data-i18n>Employee</th>
+            <th data-field="department_name" data-sort="department_name" data-empty-text="-" data-i18n>Department</th>
+            <th data-field="leave_id" data-sort="leave_topic" data-filter="true" data-type="select" data-show-all="true" data-format="lookup" data-i18n>Leave type</th>
+            <th data-field="quota_text" class="center" data-cell-class="center" data-i18n>Quota</th>
+            <th data-field="approved_text" class="center" data-cell-class="center" data-i18n>Approved</th>
+            <th data-field="pending_text" class="center" data-cell-class="center" data-i18n>Pending</th>
+            <th data-field="remaining_text" class="center" data-cell-class="center"
+                data-template="<span class='is-over' data-if='over'>${remaining_text}</span><span data-if='!over'>${remaining_text}</span>" data-i18n>Remaining</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</div>
